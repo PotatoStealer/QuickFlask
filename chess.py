@@ -4,3 +4,4 @@ class WebInterface:
         self.btnlabel = None
         self.errmsg = None
         self.board = None
+class Board:
