@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, redirect
+from flask import render_template, redirect, request
 from chess import WebInterface, Board
 
 app = Flask(__name__)
@@ -10,23 +10,23 @@ game = Board()
 def root():
     return render_template('index.html')
 
-@app.route('/newgame')
+@app.route('/newgame', methods=["POST"])
 def newgame():
-    # Note that in Python, objects and variables
-    # in the global space are available to
-    # top-level functions
     game.start()
+    # This gets a string display of the board state, which we display # using jinja2 using magic
     ui.board = game.display()
-    ui.inputlabel = f'{game.turn} player: '
-    ui.errmsg = None
-    ui.btnlabel = 'Move'
-    return redirect('/play')
+    wname, bname = request.form['wname'], request.form['bname']
+    if wname and bname:
+        return redirect('/play')
+    else:
+        return redirect('/')
 
 @app.route('/play')
 def play():
+    # Just re-route everything to here. Any moves, either invalid or # valid should just be re-routed here, so that the board state can be rendered, and we can display error messages from `ui.errmsg` without doing other weird hacks. 
     # TODO: get player move from GET request object
     # TODO: if there is no player move, render the page template
-    return render_template('chess.html')
+    return render_template('chess.html', ui=ui)
     # TODO: Validate move, redirect player back to /play again if move is invalid
     # If move is valid, check for pawns to promote
     # Redirect to /promote if there are pawns to promote, otherwise 
