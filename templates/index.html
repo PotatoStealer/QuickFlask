@@ -3,16 +3,26 @@
     <head>
         <meta charset="utf-8">
         <!-- Change your page title -->
-        <title>This is the page title</title>
+        <title>Chess Game</title>
         <link rel="stylesheet" href="static/styles.css">
     </head>
+    <style>
+        .imagealign {
+            text-align: center
+        }
+    </style>
     <body>
         <!-- Modify this section START -->
-        <img src="" alt="Placeholder for an awesome splash image">
+        <p class="imagealign">
+        <img src="https://i.pinimg.com/736x/3c/4f/18/3c4f1886e5b1d47f3126703fd20f56b7.jpg" alt="Placeholder for an awesome splash image" width="680" height="540">
+        </p>
         <p>
-            <a href="/newgame">
-                <button>Start new game</button>
-            </a>
+            <form action="/newgame" method="POST" style="text-align:center;font-size:30px;padding: 12px 20px">
+                <p> White player: <input type="text" name="wname" value="" placeholder="Name"></p>
+                <p> Black player: <input type="text" name="bname" value="" placeholder="Name"></p>
+                <input type="submit" value="Start new game">
+            </form>
+            
         </p>
         <!-- Modify this section END -->
     </body>

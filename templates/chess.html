@@ -3,14 +3,28 @@
     <head>
         <meta charset="utf-8">
         <!-- Change your page title -->
-        <title>This is the page title</title>
+        <title>Chess Game</title>
+        <link href="style.css" rel="stylesheet">
         <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <!-- Modify this section START -->
-        <p>[Placeholder for chess board]</p>
-        <p>Add a form here to get player input. Don't forget the submit button.</p>
+        <table>
+        {% for row in ui.board %}
+            <tr>
+            {% for cell in row %}
+                <td>{{ cell }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+       
+        <label>{{ui.inputlabel}}</label>
+        <input type="text" name="player_input" value="">
+        <input type="submit" value="{{ui.btnlabel}}">
         <p>We’ll have some code here to insert error messages, if any. Stay tuned.</p>
+        </div>
         <!-- Modify this section END -->
     </body>
 </html>
