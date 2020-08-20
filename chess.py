@@ -157,7 +157,7 @@ class Board:
         self.add(end, piece)
         self.printf( f'{self.get_piece(end)} {start[0]}{start[1]} -> {end[0]}{end[1]}')
 
-    def prompt(self):
+    def prompt(self, inputstr):
         '''
         Input format should be two ints,
         followed by a space,
@@ -189,24 +189,20 @@ class Board:
             end = (int(end[0]), int(end[1]))
             return (start, end)
 
-        while True:
-            inputstr = self.inputf(f'{self.turn.title()} player: ')
-            if not valid_format(inputstr):
-                self.printf('Invalid input. Please enter your move in the '
-                      'following format: __ __, _ represents a digit.')
-            elif not valid_num(inputstr):
-                self.printf('Invalid input. Move digits should be 0-7.')
+        if not valid_format(inputstr):
+            return False, f'Invalid input. Please enter your move in the following format: __ __, _ represents a digit.'
+        elif not valid_num(inputstr):
+            return False, f'Invalid input. Move digits should be 0-7.'
+        else:
+            start, end = split_and_convert(inputstr)
+            if self.valid_move(start, end):
+                left, right = inputstr.split(' ')
+                left = str(left)
+                right = str(right)
+                return True, (start, end)
             else:
-                start, end = split_and_convert(inputstr)
-                if self.valid_move(start, end):
-                    left, right = inputstr.split(' ')
-                    left = str(left)
-                    right = str(right)
-                    with open('moves.txt','a') as f:
-                        f.write(f'{self.turn.title()}'.lower() + ' ' + left + ' --> ' + right + '\n')
-                    return start, end
-                else:
-                    self.printf(f'Invalid move for {self.get_piece(start)}.')
+                return False, f'Invalid move for {self.get_piece(start)}.'
+
 
     def valid_move(self, start, end):
         '''

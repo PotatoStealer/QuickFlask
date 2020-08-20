@@ -20,9 +20,13 @@
         {% endfor %}
         </table>
        
-        <label>{{ui.inputlabel}}</label>
-        <input type="text" name="player_input" value="">
-        <input type="submit" value="{{ui.btnlabel}}">
+
+        <form action="/play" method="GET">
+            <label>{{ui.inputlabel}}</label>
+            <input type="text" name="player_input" value="">
+            <input type="submit" value="{{ui.btnlabel}}">
+        </form>
+        
         <p>We’ll have some code here to insert error messages, if any. Stay tuned.</p>
         </div>
         <!-- Modify this section END -->
