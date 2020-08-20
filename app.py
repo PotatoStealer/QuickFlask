@@ -26,8 +26,7 @@ def play():
     # Just re-route everything to here. Any moves, either invalid or # valid should just be re-routed here, so that the board state can be rendered, and we can display error messages from `ui.errmsg` without doing other weird hacks. 
     # TODO: get player move from GET request object
     # TODO: if there is no player move, render the page template
-    ui.errmsg = None
-    move = request.args.get('move')
+    move = request.args.get('player_input')
 
     if move:
         s, r = game.prompt(move)
@@ -37,6 +36,7 @@ def play():
             game.next_turn()
             ui.inputlabel = f'{game.turn} player:'
             ui.board = game.display()
+            ui.errmsg = None
         else:
             ui.errmsg = r
         return redirect('/play')
