@@ -46,6 +46,7 @@ class Board:
     # 
     def start(self):
         '''Set up the pieces and start the game.'''
+
         colour = 'black'
         self.add((0, 7), Rook(colour))
         self.add((1, 7), Knight(colour))
@@ -155,7 +156,7 @@ class Board:
         piece = self.get_piece(start)
         self.remove(start)
         self.add(end, piece)
-        self.printf( f'{self.get_piece(end)} {start[0]}{start[1]} -> {end[0]}{end[1]}')
+        #self.printf( f'{self.get_piece(end)} {start[0]}{start[1]} -> {end[0]}{end[1]}')
 
     def prompt(self, inputstr):
         '''
@@ -286,7 +287,8 @@ class Board:
         king_coord = self.find_piece('king', colour.lower())
         if not king_coord is None:
             if piece.isvalid(end, king_coord, None):
-                self.printf(f"{colour} is checkmated!")
+                #self.printf(f"{colour} is checkmated!")
+                pass
 
 class BasePiece:
     name = 'piece'

@@ -5,7 +5,6 @@ from chess import WebInterface, Board
 app = Flask(__name__)
 ui = WebInterface()
 game = Board()
-
 @app.route('/')
 def root():
     return render_template('index.html')
@@ -21,12 +20,9 @@ def newgame():
     else:
         return redirect('/')
 
-@app.route('/play', methods=['GET'])
+@app.route('/play', methods=['POST'])
 def play():
-    # Just re-route everything to here. Any moves, either invalid or # valid should just be re-routed here, so that the board state can be rendered, and we can display error messages from `ui.errmsg` without doing other weird hacks. 
-    # TODO: get player move from GET request object
-    # TODO: if there is no player move, render the page template
-    move = request.args.get('player_input')
+    move = request.form['player_input']
 
     if move:
         s, r = game.prompt(move)
@@ -43,7 +39,6 @@ def play():
     else:
         return render_template('chess.html', ui=ui)
 
-    # TODO: Validate move, redirect player back to /play again if move is invalid
     # If move is valid, check for pawns to promote
     # Redirect to /promote if there are pawns to promote, otherwise 
 
