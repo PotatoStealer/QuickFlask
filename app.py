@@ -25,16 +25,16 @@ def play():
     move = request.form['player_input']
 
     if move:
-        s, r = game.prompt(move)
-        if s:
-            start, end = r
+        success, response = game.prompt(move)
+        if success:
+            start, end = response
             game.update(start, end)
             game.next_turn()
             ui.inputlabel = f'{game.turn} player:'
             ui.board = game.display()
             ui.errmsg = None
         else:
-            ui.errmsg = r
+            ui.errmsg = response
         return redirect('/play')
     else:
         return render_template('chess.html', ui=ui)

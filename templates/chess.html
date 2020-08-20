@@ -26,8 +26,7 @@
             <input type="text" name="player_input" value="">
             <input type="submit" value="{{ui.btnlabel}}">
         </form>
-        
-        <p>{{ui.errmsg}}</p>
+        <p>{{ui.errmsg if ui.errmsg is not none}}</p>
         </div>
         <!-- Modify this section END -->
     </body>
