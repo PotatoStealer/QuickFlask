@@ -30,15 +30,15 @@ def play():
     move = request.args.get('move')
 
     if move:
-        s, r = game.prompt(move)
-        if s:
-            start, end = r
+        success, response = game.prompt(move)
+        if success:
+            start, end = response
             game.update(start, end)
             game.next_turn()
             ui.inputlabel = f'{game.turn} player:'
             ui.board = game.display()
         else:
-            ui.errmsg = r
+            ui.errmsg = response
         return redirect('/play')
     else:
         return render_template('chess.html', ui=ui)
