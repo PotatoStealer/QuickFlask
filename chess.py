@@ -5,7 +5,7 @@ class WebInterface:
         self.errmsg = None
         self.board = None
 
-class MoveLog:
+class MoveHistory:
     '''
     An implementation of the so-called circular buffer. 
     Don't associate each move to a player, just [un]do it
@@ -16,10 +16,20 @@ class MoveLog:
         self.head = None
 
     def push(self, move):
-        pass
+        if self.head is None:
+          self.head = 0
+        else:
+          self.head = (self.head + 1) % self.size
+        self.__data[self.head] = move
 
     def pop(self):
-        pass
+        move = self.__data[self.head]
+        self.__data[self.head] = None
+        if self.head == 0:
+          self.head = self.size - 1
+        else:
+          self.head -= 1
+        return move
     
 
 
@@ -289,6 +299,11 @@ class Board:
             if piece.isvalid(end, king_coord, None):
                 #self.printf(f"{colour} is checkmated!")
                 pass
+    
+    def undo(self, move):
+        '''Undo move'''
+        start, end = move.split(" ")
+        self.move(end, start)
 
 class BasePiece:
     name = 'piece'

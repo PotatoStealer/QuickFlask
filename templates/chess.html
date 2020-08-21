@@ -27,7 +27,11 @@
             <input type="submit" value="{{ui.btnlabel}}">
         </form>
         <p>{{ui.errmsg if ui.errmsg is not none}}</p>
-        </div>
+
+        <form action="/undo" method="GET">
+          <input type="submit" value="Undo">
+        </form>
+
         <!-- Modify this section END -->
     </body>
 </html>
