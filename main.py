@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, redirect, request
-from chess import WebInterface, Board, MoveHistory
+from chess import WebInterface, Board
+from movehistory import MoveHistory
 
 app = Flask(__name__)
 ui = WebInterface()
@@ -35,10 +36,6 @@ def play():
                 ui.inputlabel = f'{game.turn} player:'
                 ui.board = game.display()
                 ui.errmsg = None
-                if game.promotion(end) == True:
-                    promotion = 1
-                    col, row = end[0], end[1]
-                    return redirect('/promote', coord = f'{col}{row}', promotion = 1)
             else:
                 ui.errmsg = response
             return redirect('/play')
@@ -50,11 +47,7 @@ def play():
 
 @app.route('/promote', methods=['POST', 'GET'])
 def promote():
-    if request.method == "POST":
-        confirm = request.form['promote_q']
-        if confirm == "yes":
-            piece = game.promotion()
-
+    pass
 app.run('0.0.0.0')
 
 @app.route('/undo')

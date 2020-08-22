@@ -5,34 +5,6 @@ class WebInterface:
         self.errmsg = None
         self.board = None
 
-class MoveHistory:
-    '''
-    An implementation of the so-called circular buffer. 
-    Don't associate each move to a player, just [un]do it
-    '''
-    def __init__(self, size):
-        self.size = size
-        self.__data = [None] * size
-        self.head = None
-
-    def push(self, move):
-        if self.head is None:
-          self.head = 0
-        else:
-          self.head = (self.head + 1) % self.size
-        self.__data[self.head] = move
-
-    def pop(self):
-        move = self.__data[self.head]
-        self.__data[self.head] = None
-        if self.head == 0:
-          self.head = self.size - 1
-        else:
-          self.head -= 1
-        return move
-    
-
-
 class Board:
     '''
     The game board is represented as an 8×8 grid,
@@ -255,12 +227,13 @@ class Board:
         """
         Checks for available pawns to be promoted and prompts player for choice of promotion.
         """
-        if end[1] in (0, 7):
-            piece = self.get_piece(end)
-            colour = piece.colour
-            if piece.name == Pawn(colour).name:
-                self.remove(end)
-                self.add(end, Queen(colour))
+        pass
+        # if end[1] in (0, 7):
+        #     piece = self.get_piece(end)
+        #     colour = piece.colour
+        #     if piece.name == Pawn(colour).name:
+        #         self.remove(end)
+        #         self.add(end, Queen(colour))
 
     def next_turn(self):
         '''
