@@ -1,28 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <!-- Change your page title -->
-        <title>Chess Game</title>
-        <link href="style.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <!-- Modify this section START -->
-        <table>
-        {% for row in ui.board %}
-            <tr>
-            {% for cell in row %}
-                <td>{{ cell }}</td>
-            {% endfor %}
-            </tr>
-        {% endfor %}
-        </table>
-       
 
-        <form action="/play" method="POST">
-            <label>{{ui.inputlabel}}</label>
+<head>
+	<meta charset="utf-8">
+	<!-- Change your page title -->
+	<title>Chess Game</title>
+	<link href="style.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<!-- Modify this section START -->
+    <div class="num_row">
+            <div class="num_blk"> </div>
+            <div class="num_blk">0</div>
+            <div class="num_blk">1</div>
+            <div class="num_blk">2</div>
+            <div class="num_blk">3</div>
+            <div class="num_blk">4</div>
+            <div class="num_blk">5</div>
+            <div class="num_blk">6</div>
+            <div class="num_blk">7</div>
+        </div>
+
+	<table>
+		{% for row in game.display() %}
+            {% set outer_loop = loop %}
+			{% for cell in row %} 
+                {% set inner_loop = loop %}
+                {% if inner_loop.index == 1 %}
+                    <td class="white">{{ cell }}</td>
+                {% else %}
+                    {% if outer_loop.index is divisibleby 2 %}
+                        {% if inner_loop.index is divisibleby 2 %}
+                            <td class="white">{{ cell }}</td>
+                        {% else %}
+                            <td class="black">{{ cell }}</td>
+                        {% endif %} 
+                    {% else %} 
+                        {% if inner_loop.index is divisibleby 2 %}
+                            <td class="black">{{ cell }}</td>
+                        {% else %}
+                            <td class="white">{{ cell }}</td>
+                        {% endif %} 
+                    {% endif %} 
+                {% endif %} 
+            {% endfor %}
+		    </tr>
+		{% endfor %}
+	</table>
+
+	<form action="/play" method="POST">
+		<label>{{ui.inputlabel}}</label>
             <input type="text" name="player_input" value="">
             <input type="submit" value="{{ui.btnlabel}}">
         </form>

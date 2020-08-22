@@ -88,35 +88,22 @@ class Board:
         '''
         # helper function to generate symbols for piece
         # Row 7 is at the top, so print in reverse order
-        str = ' '
-        for row in range(8, -1, -1):
-            for col in range(0,8):
-                if row == 8 and col == 0:
-                    str += '  '
-                    # print('  ', end = '')
-                if row == 8:
-                    str += f'{col}'
-                    # print(col, end = '')
-                if col == 0 and row != 8:
-                    str += f' {row} '
-                    # print(row, end = ' ')
-                coord = (col, row)  # tuple
-                if coord in self.coords():
-                    piece = self.get_piece(coord)
-                    str += f'{piece.symbol()}'
-                    # print(f'{piece.symbol()}', end='')
+        rows = []
+        for row in range(7,-1,-1):
+            row_append = []
+            for col in range(-1,8):
+                coord = (col, row)
+                if col == -1:
+                    row_append.append(str(row))
                 else:
-                    piece = None
-                    str += ' '
-                    # print(' ', end='')
-                if col == 7:     # Put line break at the end
-                    str += '\n'
-                    # print('')
-                else:            # Print a space between pieces
-                    if row != 8:
-                        str += ' '
-                        # print(' ', end='')
-        return str.split("\n")
+                    if coord in self.coords():
+                        piece = self.get_piece(coord)
+                        row_append.append(f'{piece.symbol()}')
+                    else:
+                        piece = None
+                        row_append.append(' ')
+            rows.append(row_append)
+        return rows
 
     def coords(self):
         '''Return list of piece coordinates.'''
