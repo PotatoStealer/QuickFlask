@@ -7,28 +7,13 @@
 	<title>Chess Game</title>
 	<link href="style.css" rel="stylesheet">
 	<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-	<meta name="viewport" content="width=device-width initial-scale=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body style="background-color:pink;">
-<style>
-    .row {
-        display: table-row;
-    }
-
-    .cell {
-        display: table-cell;
-        border: 0px solid;
-        height: 25px;
-        width: 25px;
-        text-align: center;
-    }
-</style>
 <body>
 	<!-- Modify this section START -->
-    
-    <center>
-	<table>
+    <table style="margin-left:auto;margin-right:auto">
+
 		{% for row in game.display() %}
             {% set outer_loop = loop %}
             {% if outer_loop.index == 1 %}
@@ -61,16 +46,10 @@
 		{% endfor %}
 	</table>
 
-	<form action="/play" method="POST" style="text-align:center">
-		<label>{{ui.inputlabel}}</label>
-    <input type="text" name="player_input" value="">
-    <input type="submit" value="{{ui.btnlabel}}">
-  </form>
-    
-  <p>{{ui.errmsg if ui.errmsg is not none}}</p>
-
-  <form action="/undo" method="GET" style="text-align:center">
-    <input type="submit" value="undo">
+  <form action="/play" method="POST">
+    <p> Would you like to promote your pawn? <p>
+    <input type="submit" name="promote" value="Yes">
+    <input type="submit" name="promote" value="No">
   </form>
 
         <!-- Modify this section END -->
