@@ -258,7 +258,7 @@ class Board:
             piece = self.get_piece(coord)
             for opprow, colour in zip([0, 7], ['black', 'white']):
                 if row == opprow and piece.name == 'pawn' and piece.colour == colour:
-                    promoted_piece = eval(PieceClass+"(colour)")
+                    promoted_piece = eval(PieceClass.title()+"(colour)")
                     self.remove(coord)
                     self.add(coord, promoted_piece)
 

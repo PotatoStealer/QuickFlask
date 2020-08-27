@@ -50,7 +50,7 @@ def play():
 
 @app.route('/promote', methods=['POST', 'GET'])
 def promote():
-    inp = request.args.get('promote', None)
+    inp = request.form.get('promote', None)
     if inp:
         game.promotepawns(PieceClass=inp)
         ui.board = game.display()
